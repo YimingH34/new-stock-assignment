@@ -13,7 +13,6 @@ public class test {
         // Date,Open,High,Low,Close,Adj Close,Volume
         ArrayList<Float> prices = new ArrayList<>();
         ArrayList<LocalDate> dates = new ArrayList<>(); // 01.03.2022 - 01.03.2023
-        // DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         Scanner reader = new Scanner(new File("C:\\Users\\Yiming\\IdeaProjects\\untitled\\src\\V.csv")); // open scanner, only issue is that you have to change file location everytime which is quite annoying
@@ -32,11 +31,11 @@ public class test {
 
             System.out.println("Enter buy date between 2022-03-10 and 2023-03-10 (yyyy-MM-dd)(Weekdays only: ");
             String temp = input.nextLine();
-
+//for start date
             LocalDate start = LocalDate.parse(temp, formatter);
             System.out.println("Enter sell date between 2022-03-10 and 2023-03-10 (yyyy-MM-dd) (Weekdays only): ");
             temp = input.nextLine();
-
+//for end date
             LocalDate end = LocalDate.parse(temp, formatter);
             if (end.isBefore(start) ||
                     end.isBefore(LocalDate.parse("2022-03-10", formatter)) ||
@@ -44,12 +43,13 @@ public class test {
                     start.isBefore(LocalDate.parse("2022-03-10", formatter)) ||
                     start.isAfter(LocalDate.parse("2023-03-10", formatter))
             ) return;
-
+//limits the date to with in a year and other time is invalid
             int start1 = dates.indexOf(start);
             int end1 = dates.indexOf(end);
-
+//the ending price for beginning and end
             float result = prices.get(end1) - prices.get(start1);
             df.format(result);
+        //calculates the price and also format it to 2 digits
             if (result>0){
                 System.out.printf("The stock has went up by " + result + " dollars.");
             } else if (result < 0) {
@@ -58,6 +58,7 @@ public class test {
             else{
                 System.out.print("The stock price did not change." );
             }
+        //prints the statement which changes based on whether its increasing or decreasing. 
         }
     }
 
